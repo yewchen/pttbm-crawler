@@ -1,17 +1,16 @@
 package com.yewchen.crawler;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import ptt.crawler.Reader;
@@ -55,16 +54,20 @@ public class CrawlerApplication {
 
 	}
 	
-	@Value("classpath:static/violation.txt")
-    private Resource resource;
-    public void crawlerAndSetToFile() throws ParseException {
+    public void crawlerAndSetToFile() throws ParseException, IOException {
+    	
+    	String diabloBMList = getDiabloBMList();
+    	File initialFile = new File("src/main/resources/violation.txt");
+    	OutputStream out = null;
 		try {
-			String diabloBMList = getDiabloBMList();
-			File file = resource.getFile();
-			FileWriter fw = new FileWriter(file.getPath());
-			fw.write(diabloBMList);
-			fw.close();
-		} catch (IOException e) { e.printStackTrace(); } 		
+			out = new FileOutputStream(initialFile);
+			byte[] data = diabloBMList.getBytes();
+			out.write(data);
+		} catch (IOException e) { 
+			out.close();
+			e.printStackTrace(); 
+		} 		
+		out.close();
 	}
 	
 	public String getDiabloBMList() throws IOException, ParseException {

@@ -1,6 +1,11 @@
 package com.yewchen.crawler;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +23,39 @@ public class TestController {
 	@GetMapping("/abc")
 	public String test() throws IOException, ParseException {
 		
-		return "abc";
+		String diabloBMList = "TEST123456789";
+    	File initialFile = new File("src/main/resources/violation.txt");
+    	OutputStream out = null;
+		try {
+			out = new FileOutputStream(initialFile);
+			byte[] data = diabloBMList.getBytes();
+			out.write(data);
+		} catch (IOException e) { 
+			out.close();
+			e.printStackTrace(); 
+		} 		
+		out.close();
+		
+		return "abc123";
+	}
+	
+	@GetMapping("/123")
+	public String tesa() throws IOException, ParseException {
+		
+		File initialFile = new File("src/main/resources/violation.txt");
+	    InputStream in = null;
+	    String res = "null";
+	    try {
+	    	in = new FileInputStream(initialFile);
+	    	byte[] data = new byte[40960];
+	    	in.read(data);
+		    res = new String(data);
+	    } catch ( Exception e ) {
+	    	in.close();
+	    	e.printStackTrace(); 
+	    }
+	    in.close();
+		return res;
 	}
 	
 	

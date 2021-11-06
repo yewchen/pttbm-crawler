@@ -1,12 +1,9 @@
 package com.yewchen.crawler;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
+import java.io.InputStream;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,34 +12,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class CrawlerController {
 	
-	@Value("classpath:static/violation.txt")
-    private Resource resource;
-
     @GetMapping("/diabloBM")
-	public String hello( @RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
+	public String hello( @RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) throws IOException {
 		 
-		String retValue = "";
-		
-		/* get file */
-		try {
-			
-			File file = resource.getFile();
-			retValue = readFileByPath(file.getPath());
-			System.out.println(retValue);
-		} catch (IOException e) { e.printStackTrace(); }
+    	File initialFile = new File("src/main/resources/violation.txt");
+	    InputStream in = null;
+	    String res = "null";
+	    try {
+	    	in = new FileInputStream(initialFile);
+	    	byte[] data = new byte[40960];
+	    	in.read(data);
+		    res = new String(data);
+	    } catch ( Exception e ) {
+	    	in.close();
+	    	e.printStackTrace(); 
+	    }
+	    in.close();
 		 
 		/* set and return */
-		model.addAttribute("name", retValue);
+		model.addAttribute("name", res);
 		return "diabloBM";
 	        
 	}
-	
-	private static String readFileByPath(String filePath) {
-        String content = "";
-        try {
-            content = new String ( Files.readAllBytes( Paths.get(filePath) ) );
-        } catch (IOException e) { e.printStackTrace(); }
-        return content;
-    }
 	
 }
