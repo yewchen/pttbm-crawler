@@ -85,12 +85,15 @@ public class CrawlerApplication {
 		/* 抓今天自刪競標文 */
 		violationList = new Violation().getDeleteBidByDate(deleteList, Reader.laterDate(-0));
 		sb.append(htmlList("今日自刪競標文清單", violationList));
-		/* 抓今天自刪交易文 */
+		
+		/* 抓今天自刪超貼交易文 */
 		violationList = new Violation().getDeleteTradeBidByDate(deleteList, result, Reader.laterDate(-0));
 		sb.append(htmlList("今日自刪超貼交易文清單", violationList));
+		
 		/* 抓今天超貼違規文章 */
 		violationList = new Violation().getExceedPostListByDate(result, Reader.laterDate(-0));
 		sb.append(htmlList("今日交易文超貼清單", violationList));
+		
 		/* 抓今天標題無分類文章 */
 		violationList = new Violation().getNoTagByDate(result, Reader.laterDate(-0));
 		sb.append(htmlList("今日標題無分類清單", violationList));

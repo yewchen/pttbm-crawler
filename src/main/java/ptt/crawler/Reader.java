@@ -85,6 +85,7 @@ public class Reader {
 
             Response response = okHttpClient.newCall(request).execute();
             String body = response.body().string();
+            response.close();
             
             /* 抓出上一頁的URL */
             Document doc = Jsoup.parse(body);
@@ -153,6 +154,7 @@ public class Reader {
 
         Response response = okHttpClient.newCall(request).execute();
         String body = response.body().string();
+        response.close();
         
         /* 轉換文章列表 HTML 到 Article */
         List<Map<String, String>> articles = parseArticle(body);
@@ -186,6 +188,7 @@ public class Reader {
 
         Response response = okHttpClient.newCall(request).execute();
         String body = response.body().string();
+        response.close();
         
         if ( body.contains("<title>404</title>") ) {
         	return false;
