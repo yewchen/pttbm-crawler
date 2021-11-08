@@ -15,7 +15,7 @@ public class CrawlerController {
     @GetMapping("/diabloBM")
 	public String hello( @RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) throws IOException {
 		 
-    	File initialFile = new File("src/main/resources/violation.txt");
+    	File initialFile = new File("src/main/resources/static/violation.txt");
 	    InputStream in = null;
 	    String res = "null";
 	    try {

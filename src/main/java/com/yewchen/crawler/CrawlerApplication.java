@@ -57,7 +57,7 @@ public class CrawlerApplication {
     public void crawlerAndSetToFile() throws ParseException, IOException {
     	
     	String diabloBMList = getDiabloBMList();
-    	File initialFile = new File("src/main/resources/violation.txt");
+    	File initialFile = new File("src/main/resources/static/violation.txt");
     	OutputStream out = null;
 		try {
 			out = new FileOutputStream(initialFile);
