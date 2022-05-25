@@ -25,7 +25,7 @@ public class Reader {
     public static String laterDate(int x) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH,x);
-    	return new SimpleDateFormat("MM/dd").format(calendar.getTime());
+    	return new SimpleDateFormat("M/dd").format(calendar.getTime());
     }
     public static String nowTime() {
         Calendar calendar = Calendar.getInstance();
