@@ -90,7 +90,6 @@ public class Violation {
             				}
             			}
             		}
-            		
             	}
             }
         } catch (Exception e) { e.printStackTrace(); }
